@@ -1,0 +1,1137 @@
+
+#include <dt-bindings/gpio/tegra234-gpio.h>
+
+/dts-v1/;
+/plugin/;
+ 
+/ {
+    overlay-name = "Sensing AR0233 GW5200 GMSL2 Camera Device Tree Overlay";
+    jetson-header-name = "Jetson AGX CSI Connector";
+    compatible = "nvidia,p3737-0000+p3701-0000" , "nvidia,p3737-0000+p3701-0004", "nvidia,p3737-0000+p3701-0005";
+ 
+    fragment@0 {
+        target-path = "/i2c@3180000/tca9543@72/i2c@0";
+        __overlay__ {
+            dser_a: max9296@48 {
+			    compatible = "sensing,max9296";
+			    streams = "yuv8";
+			    reg = <0x48>;
+			    csi-mode = "2x4";
+				max-src = <2>;
+			    fsync-gpio = <6>;
+			    reset-gpios = <&tegra_main_gpio TEGRA234_MAIN_GPIO(H, 6) GPIO_ACTIVE_HIGH>;
+            };
+            max9295_prim@40 {
+                compatible = "sensing,max9295";
+                reg = <0x40>;
+                is-prim-ser;
+            };
+            ser_a: max9295_a@42 {
+                compatible = "sensing,max9295";
+                reg = <0x42>;
+                nvidia,gmsl-dser-device = <&dser_a>;
+            };
+            ser_b: max9295_b@60 {
+                compatible = "sensing,max9295";
+                reg = <0x60>;
+                nvidia,gmsl-dser-device = <&dser_a>;
+            };
+            cam0@1b {
+                compatible = "sensing,ar0233isp";
+                def-addr = <0x10>;
+                mclk = "extperiph1";
+                nvidia,gmsl-ser-device = <&ser_a>;
+                nvidia,gmsl-dser-device = <&dser_a>;
+                reg = <0x1b>;
+                reg_mux = <0>;
+                physical_w = "15.0";
+                physical_h = "12.5";
+                sensor_model ="ar0233";
+                post_crop_frame_drop = "0";
+                use_sensor_mode_id = "true";
+
+                mode0 {
+                    mclk_khz = "24000";
+                    num_lanes = "4";
+                    tegra_sinterface = "serial_a";
+                    vc_id = "0";
+                    discontinuous_clk = "no";
+                    dpcm_enable = "false";
+                    cil_settletime = "0";
+                    dynamic_pixel_bit_depth = "16";
+                    csi_pixel_bit_depth = "16";
+                    mode_type = "yuv";
+                    pixel_phase = "uyvy";
+
+                    active_w = "1920";
+                    active_h = "1080";
+                    readout_orientation = "0";
+                    line_length = "2200";
+                    inherent_gain = "1";
+                    pix_clk_hz = "74250000";
+                    serdes_pix_clk_hz = "833333333";
+
+                    gain_factor = "100";
+                    min_gain_val = "100";
+                    max_gain_val = "800";
+                    step_gain_val = "1";
+                    default_gain = "100";
+                    min_hdr_ratio = "1";
+                    max_hdr_ratio = "1";
+                    framerate_factor = "1000000";
+                    min_framerate = "30000000";
+                    max_framerate = "30000000";
+                    step_framerate = "1";
+                    default_framerate = "30000000";
+                    exposure_factor = "1000000";
+                    min_exp_time = "49";
+                    max_exp_time = "33333";
+                    step_exp_time = "1";
+                    default_exp_time = "33333";
+                    embedded_metadata_height = "0";
+                };
+                ports {
+                    #address-cells = <1>;
+                    #size-cells = <0>;
+                    port@0 {
+                        reg = <0>;
+                        ar0233_out0: endpoint {
+                            vc-id = <0>;
+                            port-index = <0>;
+                            bus-width = <4>;
+                            remote-endpoint = <&csi_in0>;
+                        };
+                    };
+                };
+                gmsl-link {
+                    src-csi-port = "b";
+                    dst-csi-port = "a";
+                    serdes-csi-link = "a";
+                    csi-mode = "1x4";
+                    st-vc = <0>;
+                    vc-id = <0>;
+                    num-lanes = <4>;
+                    streams = "ued-u1", "yuv8";
+                };
+            };
+            cam1@1c {
+                compatible = "sensing,ar0233isp";
+                def-addr = <0x10>;
+                mclk = "extperiph1";
+                nvidia,gmsl-ser-device = <&ser_b>;
+                nvidia,gmsl-dser-device = <&dser_a>;
+                reg = <0x1c>;
+                reg_mux = <0>;
+                physical_w = "15.0";
+                physical_h = "12.5";
+                sensor_model ="ar0233";
+                post_crop_frame_drop = "0";
+                use_sensor_mode_id = "true";
+
+                mode0 {
+                    mclk_khz = "24000";
+                    num_lanes = "4";
+                    tegra_sinterface = "serial_a";
+                    vc_id = "1";
+                    discontinuous_clk = "no";
+                    dpcm_enable = "false";
+                    cil_settletime = "0";
+                    dynamic_pixel_bit_depth = "16";
+                    csi_pixel_bit_depth = "16";
+                    mode_type = "yuv";
+                    pixel_phase = "uyvy";
+
+                    active_w = "1920";
+                    active_h = "1080";
+                    readout_orientation = "0";
+                    line_length = "2200";
+                    inherent_gain = "1";
+                    pix_clk_hz = "74250000";
+                    serdes_pix_clk_hz = "833333333";
+
+                    gain_factor = "100";
+                    min_gain_val = "100";
+                    max_gain_val = "800";
+                    step_gain_val = "1";
+                    default_gain = "100";
+                    min_hdr_ratio = "1";
+                    max_hdr_ratio = "1";
+                    framerate_factor = "1000000";
+                    min_framerate = "30000000";
+                    max_framerate = "30000000";
+                    step_framerate = "1";
+                    default_framerate = "30000000";
+                    exposure_factor = "1000000";
+                    min_exp_time = "49";
+                    max_exp_time = "33333";
+                    step_exp_time = "1";
+                    default_exp_time = "33333";
+                    embedded_metadata_height = "0";
+                };
+                ports {
+                    #address-cells = <1>;
+                    #size-cells = <0>;
+                    port@0 {
+                        reg = <0>;
+                        ar0233_out1: endpoint {
+                            vc-id = <1>;
+                            port-index = <0>;
+                            bus-width = <4>;
+                            remote-endpoint = <&csi_in1>;
+                        };
+                    };
+                };
+                gmsl-link {
+                    src-csi-port = "b";
+                    dst-csi-port = "a";
+                    serdes-csi-link = "b";
+                    csi-mode = "1x4";
+                    st-vc = <0>;
+                    vc-id = <1>;
+                    num-lanes = <4>;
+                    streams = "ued-u1", "yuv8";
+                };                      
+            };
+        };
+    };
+
+    fragment@1 {
+        target-path = "/i2c@3180000/tca9543@72/i2c@1";
+        __overlay__ {
+            dser_b: max9296@48 {
+			    compatible = "sensing,max9296";
+			    streams = "yuv8";
+			    reg = <0x48>;
+			    csi-mode = "2x4";
+				max-src = <2>;
+			    fsync-gpio = <6>;
+			    reset-gpios = <&tegra_main_gpio TEGRA234_MAIN_GPIO(AC, 0) GPIO_ACTIVE_HIGH>;
+            };
+            max9295_prim@40 {
+                compatible = "sensing,max9295";
+                reg = <0x40>;
+                is-prim-ser;
+            };
+            ser_c: max9295_a@42 {
+                compatible = "sensing,max9295";
+                reg = <0x42>;
+                nvidia,gmsl-dser-device = <&dser_b>;
+            };
+            ser_d: max9295_b@60 {
+                compatible = "sensing,max9295";
+                reg = <0x60>;
+                nvidia,gmsl-dser-device = <&dser_b>;
+            };
+            cam2@1b {
+                compatible = "sensing,ar0233isp";
+                def-addr = <0x10>;
+                mclk = "extperiph1";
+                nvidia,gmsl-ser-device = <&ser_c>;
+                nvidia,gmsl-dser-device = <&dser_b>;
+                reg = <0x1b>;
+                reg_mux = <1>;
+
+                physical_w = "15.0";
+                physical_h = "12.5";
+
+                sensor_model ="ar0233";
+
+                post_crop_frame_drop = "0";
+
+                /* enable CID_SENSOR_MODE_ID for sensor modes selection */
+                use_sensor_mode_id = "true";
+
+                mode0 {
+                    mclk_khz = "24000";
+                    num_lanes = "4";
+                    tegra_sinterface = "serial_c";
+                    vc_id = "0";
+                    discontinuous_clk = "no";
+                    dpcm_enable = "false";
+                    cil_settletime = "0";
+                    dynamic_pixel_bit_depth = "16";
+                    csi_pixel_bit_depth = "16";
+                    mode_type = "yuv";
+                    pixel_phase = "uyvy";
+
+                    active_w = "1920";
+                    active_h = "1080";
+                    readout_orientation = "0";
+                    line_length = "2200";
+                    inherent_gain = "1";
+                    pix_clk_hz = "74250000";
+                    serdes_pix_clk_hz = "833333333";
+
+                    gain_factor = "100";
+                    min_gain_val = "100";
+                    max_gain_val = "800";
+                    step_gain_val = "1";
+                    default_gain = "100";
+                    min_hdr_ratio = "1";
+                    max_hdr_ratio = "1";
+                    framerate_factor = "1000000";
+                    min_framerate = "30000000";
+                    max_framerate = "30000000";
+                    step_framerate = "1";
+                    default_framerate = "30000000";
+                    exposure_factor = "1000000";
+                    min_exp_time = "49";
+                    max_exp_time = "33333";
+                    step_exp_time = "1";
+                    default_exp_time = "33333";
+                    embedded_metadata_height = "0";
+                };
+                ports {
+                    #address-cells = <1>;
+                    #size-cells = <0>;
+                    port@0 {
+                        reg = <0>;
+                        ar0233_out2: endpoint {
+                            vc-id = <0>;
+                            port-index = <2>;
+                            bus-width = <4>;
+                            remote-endpoint = <&csi_in2>;
+                        };
+                    };
+                };
+                gmsl-link {
+                    src-csi-port = "b";
+                    dst-csi-port = "a";
+                    serdes-csi-link = "a";
+                    csi-mode = "1x4";
+                    st-vc = <0>;
+                    vc-id = <0>;
+                    num-lanes = <4>;
+                    streams = "ued-u1", "yuv8";
+                };
+            };
+            cam3@1c {
+                compatible = "sensing,ar0233isp";
+                def-addr = <0x10>;
+                mclk = "extperiph1";
+                nvidia,gmsl-ser-device = <&ser_d>;
+                nvidia,gmsl-dser-device = <&dser_b>;
+                reg = <0x1c>;
+                reg_mux = <1>;
+
+                physical_w = "15.0";
+                physical_h = "12.5";
+
+                sensor_model ="ar0233";
+
+                post_crop_frame_drop = "0";
+
+                use_sensor_mode_id = "true";
+
+                mode0 {
+                    mclk_khz = "24000";
+                    num_lanes = "4";
+                    tegra_sinterface = "serial_c";
+                    vc_id = "1";
+                    discontinuous_clk = "no";
+                    dpcm_enable = "false";
+                    cil_settletime = "0";
+                    dynamic_pixel_bit_depth = "16";
+                    csi_pixel_bit_depth = "16";
+                    mode_type = "yuv";
+                    pixel_phase = "uyvy";
+
+                    active_w = "1920";
+                    active_h = "1080";
+                    readout_orientation = "0";
+                    line_length = "2200";
+                    inherent_gain = "1";
+                    pix_clk_hz = "74250000";
+                    serdes_pix_clk_hz = "833333333";
+
+                    gain_factor = "100";
+                    min_gain_val = "100";
+                    max_gain_val = "800";
+                    step_gain_val = "1";
+                    default_gain = "100";
+                    min_hdr_ratio = "1";
+                    max_hdr_ratio = "1";
+                    framerate_factor = "1000000";
+                    min_framerate = "30000000";
+                    max_framerate = "30000000";
+                    step_framerate = "1";
+                    default_framerate = "30000000";
+                    exposure_factor = "1000000";
+                    min_exp_time = "49";
+                    max_exp_time = "33333";
+                    step_exp_time = "1";
+                    default_exp_time = "33333";
+                    embedded_metadata_height = "0";
+                };
+                ports {
+                    #address-cells = <1>;
+                    #size-cells = <0>;
+                    port@0 {
+                        reg = <0>;
+                        ar0233_out3: endpoint {
+                            vc-id = <1>;
+                            port-index = <2>;
+                            bus-width = <4>;
+                            remote-endpoint = <&csi_in3>;
+                        };
+                    };
+                };
+                gmsl-link {
+                    src-csi-port = "b";
+                    dst-csi-port = "a";
+                    serdes-csi-link = "b";
+                    csi-mode = "1x4";
+                    st-vc = <0>;
+                    vc-id = <1>;
+                    num-lanes = <4>;
+                    streams = "ued-u1", "yuv8";
+                };
+            };
+        };
+    };
+  
+    fragment@2 {
+        target-path = "/i2c@3180000/tca9543@70/i2c@0";
+        __overlay__ {
+            dser_c: max9296@48 {
+			    compatible = "sensing,max9296";
+			    streams = "yuv8";
+			    reg = <0x48>;
+			    csi-mode = "2x4";
+				max-src = <2>;
+			    fsync-gpio = <6>;
+			    reset-gpios = <&tegra_main_gpio TEGRA234_MAIN_GPIO(H, 3) GPIO_ACTIVE_HIGH>;
+            };
+            max9295_prim@40 {
+                compatible = "sensing,max9295";
+                reg = <0x40>;
+                is-prim-ser;
+            };
+            ser_e: max9295_a@42 {
+                compatible = "sensing,max9295";
+                reg = <0x42>;
+                nvidia,gmsl-dser-device = <&dser_c>;
+            };
+            ser_f: max9295_b@60 {
+                compatible = "sensing,max9295";
+                reg = <0x60>;
+                nvidia,gmsl-dser-device = <&dser_c>;
+            };
+            cam4@1b {
+                compatible = "sensing,ar0233isp";
+                def-addr = <0x10>;
+                mclk = "extperiph1";
+                nvidia,gmsl-ser-device = <&ser_e>;
+                nvidia,gmsl-dser-device = <&dser_c>;
+                reg = <0x1b>;
+                reg_mux = <4>;
+
+                physical_w = "15.0";
+                physical_h = "12.5";
+
+                sensor_model ="ar0233";
+
+                post_crop_frame_drop = "0";
+
+                use_sensor_mode_id = "true";
+
+                mode0 {
+                    mclk_khz = "24000";
+                    num_lanes = "4";
+                    tegra_sinterface = "serial_e";
+                    vc_id = "0";
+                    discontinuous_clk = "no";
+                    dpcm_enable = "false";
+                    cil_settletime = "0";
+                    dynamic_pixel_bit_depth = "16";
+                    csi_pixel_bit_depth = "16";
+                    mode_type = "yuv";
+                    pixel_phase = "uyvy";
+
+                    active_w = "1920";
+                    active_h = "1080";
+                    readout_orientation = "0";
+                    line_length = "2200";
+                    inherent_gain = "1";
+                    pix_clk_hz = "74250000";
+                    serdes_pix_clk_hz = "833333333";
+
+                    gain_factor = "100";
+                    min_gain_val = "100";
+                    max_gain_val = "800";
+                    step_gain_val = "1";
+                    default_gain = "100";
+                    min_hdr_ratio = "1";
+                    max_hdr_ratio = "1";
+                    framerate_factor = "1000000";
+                    min_framerate = "30000000";
+                    max_framerate = "30000000";
+                    step_framerate = "1";
+                    default_framerate = "30000000";
+                    exposure_factor = "1000000";
+                    min_exp_time = "49";
+                    max_exp_time = "33333";
+                    step_exp_time = "1";
+                    default_exp_time = "33333";
+                    embedded_metadata_height = "0";
+                };
+                ports {
+                    #address-cells = <1>;
+                    #size-cells = <0>;
+                    port@0 {
+                        reg = <0>;
+                        ar0233_out4: endpoint {
+                            vc-id = <0>;
+                            port-index = <4>;
+                            bus-width = <4>;
+                            remote-endpoint = <&csi_in4>;
+                        };
+                    };
+                };
+                gmsl-link {
+                    src-csi-port = "b";
+                    dst-csi-port = "a";
+                    serdes-csi-link = "a";
+                    csi-mode = "1x4";
+                    st-vc = <0>;
+                    vc-id = <0>;
+                    num-lanes = <4>;
+                    streams = "ued-u1", "yuv8";
+                };
+            };
+            cam5@1c {
+                compatible = "sensing,ar0233isp";
+                def-addr = <0x10>;
+                mclk = "extperiph1";
+                nvidia,gmsl-ser-device = <&ser_f>;
+                nvidia,gmsl-dser-device = <&dser_c>;
+                reg = <0x1c>;
+                reg_mux = <2>;
+
+                physical_w = "15.0";
+                physical_h = "12.5";
+
+                sensor_model ="ar0233";
+
+                post_crop_frame_drop = "0";
+
+                use_sensor_mode_id = "true";
+
+                mode0 {
+                    mclk_khz = "24000";
+                    num_lanes = "4";
+                    tegra_sinterface = "serial_e";
+                    vc_id = "1";
+                    discontinuous_clk = "no";
+                    dpcm_enable = "false";
+                    cil_settletime = "0";
+                    dynamic_pixel_bit_depth = "16";
+                    csi_pixel_bit_depth = "16";
+                    mode_type = "yuv";
+                    pixel_phase = "uyvy";
+
+                    active_w = "1920";
+                    active_h = "1080";
+                    readout_orientation = "0";
+                    line_length = "2200";
+                    inherent_gain = "1";
+                    pix_clk_hz = "74250000";
+                    serdes_pix_clk_hz = "833333333";
+
+                    gain_factor = "100";
+                    min_gain_val = "100";
+                    max_gain_val = "800";
+                    step_gain_val = "1";
+                    default_gain = "100";
+                    min_hdr_ratio = "1";
+                    max_hdr_ratio = "1";
+                    framerate_factor = "1000000";
+                    min_framerate = "30000000";
+                    max_framerate = "30000000";
+                    step_framerate = "1";
+                    default_framerate = "30000000";
+                    exposure_factor = "1000000";
+                    min_exp_time = "49";
+                    max_exp_time = "33333";
+                    step_exp_time = "1";
+                    default_exp_time = "33333";
+                    embedded_metadata_height = "0";
+                };
+                ports {
+                    #address-cells = <1>;
+                    #size-cells = <0>;
+                    port@0 {
+                        reg = <0>;
+                        ar0233_out5: endpoint {
+                            vc-id = <1>;
+                            port-index = <4>;
+                            bus-width = <4>;
+                            remote-endpoint = <&csi_in5>;
+                        };
+                    };
+                };
+                gmsl-link {
+                    src-csi-port = "b";
+                    dst-csi-port = "a";
+                    serdes-csi-link = "b";
+                    csi-mode = "1x4";
+                    st-vc = <0>;
+                    vc-id = <1>;
+                    num-lanes = <4>;
+                    streams = "ued-u1", "yuv8";
+                };
+            };
+        };
+    };
+
+    fragment@3 {
+        target-path = "/i2c@3180000/tca9543@70/i2c@1";
+        __overlay__ {
+            dser_d: max9296@48 {
+			    compatible = "sensing,max9296";
+			    streams = "yuv8";
+			    reg = <0x48>;
+			    csi-mode = "2x4";
+				max-src = <2>;
+			    fsync-gpio = <6>;
+			    reset-gpios = <&tegra_main_gpio TEGRA234_MAIN_GPIO(AC, 1) GPIO_ACTIVE_HIGH>;
+            };
+            max9295_prim@40 {
+                compatible = "sensing,max9295";
+                reg = <0x40>;
+                is-prim-ser;
+            };
+            ser_g: max9295_a@42 {
+                compatible = "sensing,max9295";
+                reg = <0x42>;
+                nvidia,gmsl-dser-device = <&dser_d>;
+            };
+            ser_h: max9295_b@60 {
+                compatible = "sensing,max9295";
+                reg = <0x60>;
+                nvidia,gmsl-dser-device = <&dser_d>;
+            };
+            cam6@1b {
+                compatible = "sensing,ar0233isp";
+                def-addr = <0x10>;
+                mclk = "extperiph1";
+                nvidia,gmsl-ser-device = <&ser_g>;
+                nvidia,gmsl-dser-device = <&dser_d>;
+                reg = <0x1b>;
+                reg_mux = <3>;
+
+                physical_w = "15.0";
+                physical_h = "12.5";
+
+                sensor_model ="ar0233";
+
+                post_crop_frame_drop = "0";
+
+                use_sensor_mode_id = "true";
+
+                mode0 {
+                    mclk_khz = "24000";
+                    num_lanes = "4";
+                    tegra_sinterface = "serial_g";
+                    vc_id = "0";
+                    discontinuous_clk = "no";
+                    dpcm_enable = "false";
+                    cil_settletime = "0";
+                    dynamic_pixel_bit_depth = "16";
+                    csi_pixel_bit_depth = "16";
+                    mode_type = "yuv";
+                    pixel_phase = "uyvy";
+
+                    active_w = "1920";
+                    active_h = "1080";
+                    readout_orientation = "0";
+                    line_length = "2200";
+                    inherent_gain = "1";
+                    pix_clk_hz = "74250000";
+                    serdes_pix_clk_hz = "833333333";
+
+                    gain_factor = "100";
+                    min_gain_val = "100";
+                    max_gain_val = "800";
+                    step_gain_val = "1";
+                    default_gain = "100";
+                    min_hdr_ratio = "1";
+                    max_hdr_ratio = "1";
+                    framerate_factor = "1000000";
+                    min_framerate = "30000000";
+                    max_framerate = "30000000";
+                    step_framerate = "1";
+                    default_framerate = "30000000";
+                    exposure_factor = "1000000";
+                    min_exp_time = "49";
+                    max_exp_time = "33333";
+                    step_exp_time = "1";
+                    default_exp_time = "33333";
+                    embedded_metadata_height = "0";
+                };
+                ports {
+                    #address-cells = <1>;
+                    #size-cells = <0>;
+                    port@0 {
+                        reg = <0>;
+                        ar0233_out6: endpoint {
+                            vc-id = <0>;
+                            port-index = <5>;
+                            bus-width = <4>;
+                            remote-endpoint = <&csi_in6>;
+                        };
+                    };
+                };
+                gmsl-link {
+                    src-csi-port = "b";
+                    dst-csi-port = "a";
+                    serdes-csi-link = "a";
+                    csi-mode = "1x4";
+                    st-vc = <0>;
+                    vc-id = <0>;
+                    num-lanes = <4>;
+                    streams = "ued-u1", "yuv8";
+                };
+            };
+            cam7@1c {
+                compatible = "sensing,ar0233isp";
+                def-addr = <0x10>;
+                mclk = "extperiph1";
+                nvidia,gmsl-ser-device = <&ser_h>;
+                nvidia,gmsl-dser-device = <&dser_d>;
+                reg = <0x1c>;
+                reg_mux = <3>;
+
+                physical_w = "15.0";
+                physical_h = "12.5";
+
+                sensor_model ="ar0233";
+
+                post_crop_frame_drop = "0";
+
+                use_sensor_mode_id = "true";
+
+                mode0 {
+                    mclk_khz = "24000";
+                    num_lanes = "4";
+                    tegra_sinterface = "serial_g";
+                    vc_id = "1";
+                    discontinuous_clk = "no";
+                    dpcm_enable = "false";
+                    cil_settletime = "0";
+                    dynamic_pixel_bit_depth = "16";
+                    csi_pixel_bit_depth = "16";
+                    mode_type = "yuv";
+                    pixel_phase = "uyvy";
+
+                    active_w = "1920";
+                    active_h = "1080";
+                    readout_orientation = "0";
+                    line_length = "2200";
+                    inherent_gain = "1";
+                    pix_clk_hz = "74250000";
+                    serdes_pix_clk_hz = "833333333";
+
+                    gain_factor = "100";
+                    min_gain_val = "100";
+                    max_gain_val = "800";
+                    step_gain_val = "1";
+                    default_gain = "100";
+                    min_hdr_ratio = "1";
+                    max_hdr_ratio = "1";
+                    framerate_factor = "1000000";
+                    min_framerate = "30000000";
+                    max_framerate = "30000000";
+                    step_framerate = "1";
+                    default_framerate = "30000000";
+                    exposure_factor = "1000000";
+                    min_exp_time = "49";
+                    max_exp_time = "33333";
+                    step_exp_time = "1";
+                    default_exp_time = "33333";
+                    embedded_metadata_height = "0";
+                };
+                ports {
+                    #address-cells = <1>;
+                    #size-cells = <0>;
+                    port@0 {
+                        reg = <0>;
+                        ar0233_out7: endpoint {
+                            vc-id = <1>;
+                            port-index = <5>;
+                            bus-width = <4>;
+                            remote-endpoint = <&csi_in7>;
+                        };
+                    };
+                };
+                gmsl-link {
+                    src-csi-port = "b";
+                    dst-csi-port = "a";
+                    serdes-csi-link = "b";
+                    csi-mode = "1x4";
+                    st-vc = <0>;
+                    vc-id = <1>;
+                    num-lanes = <4>;
+                    streams = "ued-u1", "yuv8";
+                };
+            };
+        };
+    };
+
+    fragment@4 {
+        target-path = "/host1x@13e00000/nvcsi@15a00000";
+        __overlay__ {
+            num-channels = <8>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+			channel@0 {
+				reg = <0>;
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						csi_in0: endpoint@0 {
+							port-index = <0>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0233_out0>;
+						};
+					};
+					port@1 {
+						reg = <1>;
+						csi_out0: endpoint@1 {
+							remote-endpoint = <&vi_in0>;
+						};
+					};
+				};
+			};
+			channel@1 {
+				reg = <1>;
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						csi_in1: endpoint@2 {
+							port-index = <0>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0233_out1>;
+						};
+					};
+					port@1 {
+						reg = <1>;
+						csi_out1: endpoint@3 {
+							remote-endpoint = <&vi_in1>;
+						};
+					};
+				};
+			};
+			channel@2 {
+				reg = <2>;
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						csi_in2: endpoint@4 {
+							port-index = <2>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0233_out2>;
+						};
+					};
+					port@1 {
+						reg = <1>;
+						csi_out2: endpoint@5 {
+							remote-endpoint = <&vi_in2>;
+						};
+					};
+				};
+			};
+			channel@3 {
+				reg = <3>;
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						csi_in3: endpoint@6 {
+							port-index = <2>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0233_out3>;
+						};
+					};
+					port@1 {
+						reg = <1>;
+						csi_out3: endpoint@7 {
+							remote-endpoint = <&vi_in3>;
+						};
+					};
+				};
+			};
+			channel@4 {
+				reg = <4>;
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						csi_in4: endpoint@8 {
+							port-index = <4>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0233_out4>;
+						};
+					};
+					port@1 {
+						reg = <1>;
+						csi_out4: endpoint@9 {
+							remote-endpoint = <&vi_in4>;
+						};
+					};
+				};
+			};
+			channel@5 {
+				reg = <5>;
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						csi_in5: endpoint@10 {
+							port-index = <4>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0233_out5>;
+						};
+					};
+					port@1 {
+						reg = <1>;
+						csi_out5: endpoint@11 {
+							remote-endpoint = <&vi_in5>;
+						};
+					};
+				};
+			};
+			channel@6 {
+				reg = <6>;
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						csi_in6: endpoint@12 {
+							port-index = <6>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0233_out6>;
+						};
+					};
+					port@1 {
+						reg = <1>;
+						csi_out6: endpoint@13 {
+							remote-endpoint = <&vi_in6>;
+						};
+					};
+				};
+			};
+			channel@7 {
+				reg = <7>;
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						csi_in7: endpoint@14 {
+							port-index = <6>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0233_out7>;
+						};
+					};
+					port@1 {
+						reg = <1>;
+						csi_out7: endpoint@15 {
+							remote-endpoint = <&vi_in7>;
+						};
+					};
+				};
+			};
+		};
+    };
+
+    fragment@5 {
+        target-path = "/tegra-capture-vi";
+        __overlay__ {
+            num-channels = <8>;
+		    ports {
+		    	#address-cells = <1>;
+		    	#size-cells = <0>;
+		    	port@0 {
+		    		reg = <0>;
+		    		vi_in0: endpoint {
+		    			vc-id = <0>;
+		    			port-index = <0>;
+		    			bus-width = <4>;
+		    			remote-endpoint = <&csi_out0>;
+		    		};
+		    	};
+		    	port@1 {
+		    		reg = <1>;
+		    		vi_in1: endpoint {
+		    			vc-id = <1>;
+		    			port-index = <0>;
+		    			bus-width = <4>;
+		    			remote-endpoint = <&csi_out1>;
+		    		};
+		    	};
+		    	port@2 {
+		    	    reg = <2>;
+		    		vi_in2: endpoint {
+		    			vc-id = <0>;
+		    			port-index = <2>;
+		    			bus-width = <4>;
+		    			remote-endpoint = <&csi_out2>;
+                  };
+              };
+		    	port@3 {
+		    		reg = <3>;
+		    		vi_in3: endpoint {
+		    			vc-id = <1>;
+		    			port-index = <2>;
+		    			bus-width = <4>;
+		    			remote-endpoint = <&csi_out3>;
+		    		};
+		    	};
+		    	port@4 {
+		    		reg = <4>;
+		    		vi_in4: endpoint {
+		    			vc-id = <0>;
+		    			port-index = <4>;
+		    			bus-width = <4>;
+		    			remote-endpoint = <&csi_out4>;
+		    		};
+		    	};
+		    	port@5 {
+		    		reg = <5>;
+		    		vi_in5: endpoint {
+		    			vc-id = <1>;
+		    			port-index = <4>;
+		    			bus-width = <4>;
+		    			remote-endpoint = <&csi_out5>;
+		    		};
+		    	};
+		    	port@6 {
+		    		reg = <6>;
+		    		vi_in6: endpoint {
+		    			vc-id = <0>;
+		    			port-index = <5>;
+		    			bus-width = <4>;
+		    			remote-endpoint = <&csi_out6>;
+		    		};
+		    	};
+		    	port@7 {
+		    		reg = <7>;
+		    		vi_in7: endpoint {
+		    			vc-id = <1>;
+		    			port-index = <5>;
+		    			bus-width = <4>;
+		    			remote-endpoint = <&csi_out7>;
+		    		};
+		    	};
+		    };
+        };
+    };
+
+    /* Tegra Camera models */
+    fragment6 {
+        target = <&tcp>;
+        __overlay__ {
+	        num_csi_lanes = <8>;
+	        max_lane_speed = <4000000>;
+	        min_bits_per_pixel = <10>;
+	        vi_peak_byte_per_pixel = <2>;
+	        vi_bw_margin_pct = <25>;
+	        isp_peak_byte_per_pixel = <5>;
+	        isp_bw_margin_pct = <25>;
+
+            modules {
+			    module0 {
+			    	badge = "ar0233_rear";
+			    	position = "rear";
+			    	orientation = "1";
+			    	drivernode0 {
+			    		pcl_id = "v4l2_sensor";
+			    		devname = "ar0233 30-001b";
+			    		proc-device-tree = "/proc/device-tree/i2c@3180000/tca9543@72/i2c@0/cam0@1b";
+			    	};
+			    };
+			    module1 {
+				    badge = "ar0233_front";
+				    position = "front";
+				    orientation = "1";
+				    drivernode0 {
+				    	pcl_id = "v4l2_sensor";
+				    	devname = "ar0233 30-001c";
+				    	proc-device-tree = "/proc/device-tree/i2c@3180000/tca9543@72/i2c@0/cam1@1c";
+				    };
+			    };
+			    module2 {
+				    badge = "ar0233_left";
+				    position = "topright";
+				    orientation = "1";
+				    drivernode0 {
+				    	pcl_id = "v4l2_sensor";
+				    	devname = "ar0233 31-001b";
+				    	proc-device-tree = "/proc/device-tree/i2c@3180000/tca9543@72/i2c@1/cam2@1b";
+				    };
+			    };
+			    module3 {
+				    badge = "ar0233_right";
+				    position = "bottomright";
+				    orientation = "1";
+				    drivernode0 {
+				    	pcl_id = "v4l2_sensor";
+				    	devname = "ar0233 31-001c";
+				    	proc-device-tree = "/proc/device-tree/i2c@3180000/tca9543@72/i2c@1/cam3@1c";
+				    };
+			    };
+			    module4 {
+				    badge = "ar0233_right";
+				    position = "topleft";
+				    orientation = "1";
+				    drivernode0 {
+					    pcl_id = "v4l2_sensor";
+					    devname = "ar0233 32-001b";
+					    proc-device-tree = "/proc/device-tree/i2c@3180000/tca9543@73/i2c@0/cam4@1b";
+				    };
+			    };
+			    module5 {
+				    badge = "ar0233_right";
+				    position = "centerright";
+				    orientation = "1";
+				    drivernode0 {
+					    pcl_id = "v4l2_sensor";
+					    devname = "ar0233 32-001c";
+					    proc-device-tree = "/proc/device-tree/i2c@3180000/tca9543@73/i2c@0/cam5@1c";
+				    };
+			    };
+			    module6 {
+				    badge = "ar0233_right";
+				    position = "centerleft";
+				    orientation = "1";
+				    drivernode0 {
+					    pcl_id = "v4l2_sensor";
+					    devname = "ar0233 33-001b";
+					    proc-device-tree = "/proc/device-tree/i2c@3180000/tca9543@73/i2c@1/cam6@1b";
+				    };
+			    };
+			    module7 {
+				    badge = "ar0233_right";
+				    position = "bottomleft";
+				    orientation = "1";
+				    drivernode0 {
+					    pcl_id = "v4l2_sensor";
+					    devname = "ar0233 33-001c";
+					    proc-device-tree = "/proc/device-tree/i2c@3180000/tca9543@73/i2c@1/cam7@1c";
+				    };
+			    };
+		    };
+        };
+    };
+};

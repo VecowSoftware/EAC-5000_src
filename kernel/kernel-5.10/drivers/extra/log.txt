@@ -1,0 +1,38 @@
+ubuntu@EAC-5000:/media/ubuntu/UBUNTU_leo/temp/sensing-ar0233-nvp2650-gmsl-dkms/src$ sudo modinfo ./sensing-max9295.ko 
+[sudo] password for ubuntu: 
+filename:       /media/ubuntu/UBUNTU_leo/temp/sensing-ar0233-nvp2650-gmsl-dkms/src/./sensing-max9295.ko
+license:        GPL v2
+author:         Sudhir Vyas <svyas@nvidia.com>
+description:    GMSL Serializer driver max9295
+alias:          i2c:sensing,max9295
+alias:          of:N*T*Csensing,max9295C*
+alias:          of:N*T*Csensing,max9295
+depends:        
+name:           sensing_max9295
+vermagic:       5.10.104-tegra SMP preempt mod_unload modversions aarch64
+ubuntu@EAC-5000:/media/ubuntu/UBUNTU_leo/temp/sensing-ar0233-nvp2650-gmsl-dkms/src$ sudo modinfo ./sensing-max9296.
+modinfo: ERROR: Module ./sensing-max9296. not found.
+ubuntu@EAC-5000:/media/ubuntu/UBUNTU_leo/temp/sensing-ar0233-nvp2650-gmsl-dkms/src$ sudo modinfo ./sensing-max9296.ko 
+filename:       /media/ubuntu/UBUNTU_leo/temp/sensing-ar0233-nvp2650-gmsl-dkms/src/./sensing-max9296.ko
+license:        GPL v2
+description:    Dual GMSL Deserializer driver max9296
+alias:          of:N*T*Csensing,max9296C*
+alias:          of:N*T*Csensing,max9296
+alias:          i2c:sensing,max9296
+depends:        
+name:           sensing_max9296
+vermagic:       5.10.104-tegra SMP preempt mod_unload modversions aarch64
+ubuntu@EAC-5000:/media/ubuntu/UBUNTU_leo/temp/sensing-ar0233-nvp2650-gmsl-dkms/src$ sudo modinfo ./sensing-ar0233-gw5200.ko 
+filename:       /media/ubuntu/UBUNTU_leo/temp/sensing-ar0233-nvp2650-gmsl-dkms/src/./sensing-ar0233-gw5200.ko
+license:        GPL v2
+description:    Media Controller driver for Sony AR0233
+alias:          of:N*T*Csensing,ar0233ispC*
+alias:          of:N*T*Csensing,ar0233isp
+alias:          i2c:sensing,ar0233isp
+depends:        
+name:           sensing_ar0233_gw5200
+vermagic:       5.10.104-tegra SMP preempt mod_unload modversions aarch64
+parm:           test_mode:int
+ubuntu@EAC-5000:/media/ubuntu/UBUNTU_leo/temp/sensing-ar0233-nvp2650-gmsl-dkms/src$ uname -a
+Linux EAC-5000 5.10.104-tegra #2 SMP PREEMPT Wed Nov 22 00:52:35 EST 2023 aarch64 aarch64 aarch64 GNU/Linux
+

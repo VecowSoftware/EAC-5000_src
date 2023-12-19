@@ -1,0 +1,1161 @@
+/*
+ * Copyright (c) 2018-2021, NVIDIA CORPORATION.  All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms and conditions of the GNU General Public License,
+ * version 2, as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+//#include <./tegra234-otocam-camera-all-mode.dtsi>
+/ {
+	tegra-capture-vi {
+		num-channels = <8>;
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			port@0 {
+				reg = <0>;
+				ar0233_vi_in0: endpoint {
+					vc-id = <0>;
+					port-index = <0>;
+					bus-width = <4>;
+					remote-endpoint = <&ar0233_csi_out0>;
+				};
+			};
+			port@1 {
+				reg = <1>;
+				ar0233_vi_in1: endpoint {
+					vc-id = <1>;
+					port-index = <0>;
+					bus-width = <4>;
+					remote-endpoint = <&ar0233_csi_out1>;
+				};
+			};
+			port@2 {
+					reg = <2>;
+					ar0233_vi_in2: endpoint {
+						vc-id = <0>;
+						port-index = <2>;
+						bus-width = <4>;
+						remote-endpoint = <&ar0233_csi_out2>;
+					};
+				};
+				port@3 {
+					reg = <3>;
+					ar0233_vi_in3: endpoint {
+						vc-id = <1>;
+						port-index = <2>;
+						bus-width = <4>;
+						remote-endpoint = <&ar0233_csi_out3>;
+					};
+				};
+				port@4 {
+					reg = <4>;
+					ar0233_vi_in4: endpoint {
+						vc-id = <0>;
+						port-index = <4>;
+						bus-width = <4>;
+						remote-endpoint = <&ar0233_csi_out4>;
+					};
+				};
+				port@5 {
+					reg = <5>;
+					ar0233_vi_in5: endpoint {
+						vc-id = <1>;
+						port-index = <4>;
+						bus-width = <4>;
+						remote-endpoint = <&ar0233_csi_out5>;
+					};
+				};
+				port@6 {
+					reg = <6>;
+					ar0233_vi_in6: endpoint {
+						vc-id = <0>;
+						port-index = <5>;
+						bus-width = <4>;
+						remote-endpoint = <&ar0233_csi_out6>;
+					};
+				};
+				port@7 {
+					reg = <7>;
+					ar0233_vi_in7: endpoint {
+						vc-id = <1>;
+						port-index = <5>;
+						bus-width = <4>;
+						remote-endpoint = <&ar0233_csi_out7>;
+					};
+				};
+		};
+	};
+
+	host1x@13e00000 {
+		nvcsi@15a00000 {
+			num-channels = <8>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+			channel@0 {
+				reg = <0>;
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0233_csi_in0: endpoint@0 {
+							port-index = <0>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0233_out0>;
+						};
+					};
+					port@1 {
+						reg = <1>;
+						ar0233_csi_out0: endpoint@1 {
+							remote-endpoint = <&ar0233_vi_in0>;
+						};
+					};
+				};
+			};
+			channel@1 {
+				reg = <1>;
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0233_csi_in1: endpoint@2 {
+							port-index = <0>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0233_out1>;
+						};
+					};
+					port@1 {
+						reg = <1>;
+						ar0233_csi_out1: endpoint@3 {
+							remote-endpoint = <&ar0233_vi_in1>;
+						};
+					};
+				};
+			};
+			channel@2 {
+				reg = <2>;
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0233_csi_in2: endpoint@4 {
+							port-index = <2>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0233_out2>;
+						};
+					};
+					port@1 {
+						reg = <1>;
+						ar0233_csi_out2: endpoint@5 {
+							remote-endpoint = <&ar0233_vi_in2>;
+						};
+					};
+				};
+			};
+			channel@3 {
+				reg = <3>;
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0233_csi_in3: endpoint@6 {
+							port-index = <2>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0233_out3>;
+						};
+					};
+					port@1 {
+						reg = <1>;
+						ar0233_csi_out3: endpoint@7 {
+							remote-endpoint = <&ar0233_vi_in3>;
+						};
+					};
+				};
+			};
+			channel@4 {
+				reg = <4>;
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0233_csi_in4: endpoint@8 {
+							port-index = <4>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0233_out4>;
+						};
+					};
+					port@1 {
+						reg = <1>;
+						ar0233_csi_out4: endpoint@9 {
+							remote-endpoint = <&ar0233_vi_in4>;
+						};
+					};
+				};
+			};
+			channel@5 {
+				reg = <5>;
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0233_csi_in5: endpoint@10 {
+							port-index = <4>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0233_out5>;
+						};
+					};
+					port@1 {
+						reg = <1>;
+						ar0233_csi_out5: endpoint@11 {
+							remote-endpoint = <&ar0233_vi_in5>;
+						};
+					};
+				};
+			};
+			channel@6 {
+				reg = <6>;
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0233_csi_in6: endpoint@12 {
+							port-index = <6>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0233_out6>;
+						};
+					};
+					port@1 {
+						reg = <1>;
+						ar0233_csi_out6: endpoint@13 {
+							remote-endpoint = <&ar0233_vi_in6>;
+						};
+					};
+				};
+			};
+			channel@7 {
+				reg = <7>;
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0233_csi_in7: endpoint@14 {
+							port-index = <6>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0233_out7>;
+						};
+					};
+					port@1 {
+						reg = <1>;
+						ar0233_csi_out7: endpoint@15 {
+							remote-endpoint = <&ar0233_vi_in7>;
+						};
+					};
+				};
+			};
+		};
+	};
+
+i2c@3180000 {
+		tca9543@72 {
+		i2c@0 {
+		cam0@1b {
+				compatible = "sensing,ar0233isp";
+
+				def-addr = <0x10>;	
+				reg_mux = <0x0>;
+				/* Physical dimensions of sensor */
+				physical_w = "15.0";
+				physical_h = "12.5";
+
+				sensor_model ="ar0233";
+
+				/* Defines number of frames to be dropped by driver internally after applying */
+				/* sensor crop settings. Some sensors send corrupt frames after applying */
+				/* crop co-ordinates */
+				post_crop_frame_drop = "0";
+
+				/* Convert Gain to unit of dB (decibel) befor passing to kernel driver */
+				//use_decibel_gain = "true";	// FIX:?
+
+				/* enable CID_SENSOR_MODE_ID for sensor modes selection */
+				use_sensor_mode_id = "true";
+				mode0 {
+					mclk_khz = "24000";
+					tegra_sinterface = "serial_a";
+					vc_id = "0";
+					num_lanes = "4";
+					discontinuous_clk = "no";
+					dpcm_enable = "false";
+					cil_settletime = "0";
+					mode_type = "yuv";
+					pixel_phase = "uyvy";
+					csi_pixel_bit_depth = "16";
+					dynamic_pixel_bit_depth = "16";
+
+					active_w = "1920";
+					active_h = "1080";
+					readout_orientation = "0";
+					line_length = "2200";
+					inherent_gain = "1";
+					pix_clk_hz = "74250000";	
+					//pix_clk_hz = "74250000";//test
+					serdes_pix_clk_hz = "1875000000";
+
+					gain_factor = "100";
+					min_gain_val = "100"; /* dB */
+					max_gain_val = "800"; /* dB */
+					step_gain_val = "1"; /* 0.3 */
+					default_gain = "100";
+					min_hdr_ratio = "1";
+					max_hdr_ratio = "1";
+					framerate_factor = "1000000";
+					min_framerate = "30000000";
+					max_framerate = "30000000";
+					step_framerate = "1";
+					default_framerate = "30000000";
+					exposure_factor = "1000000";
+					min_exp_time = "49"; /*us, 2 lines*/
+					max_exp_time = "33333";
+					step_exp_time = "1";
+					default_exp_time = "33333";/* us */
+					embedded_metadata_height = "0";
+					
+				};
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0233_out0: endpoint {
+							vc-id = <0>;
+							port-index = <0>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0233_csi_in0>;
+						};
+					};
+				};
+				gmsl-link {
+					src-csi-port = "b";
+					dst-csi-port = "a";
+					serdes-csi-link = "a";
+					csi-mode = "1x4";
+					st-vc = <0>;
+					vc-id = <0>;
+					num-lanes = <4>;
+					streams = "yuv8";	// FIX:*
+					//streams = "ued-u1", "raw12";	// FIX:-
+				};
+			};
+
+
+			cam1@1c{
+				compatible = "sensing,ar0233isp";
+
+				def-addr = <0x10>;	// FIX:+
+				//reg = <0x1b>;	// FIX:-
+
+				/* Physical dimensions of sensor */
+				physical_w = "15.0";
+				physical_h = "12.5";
+				reg_mux = <0>;
+				sensor_model ="ar0233";
+
+				/* Defines number of frames to be dropped by driver internally after applying */
+				/* sensor crop settings. Some sensors send corrupt frames after applying */
+				/* crop co-ordinates */
+				post_crop_frame_drop = "0";
+
+				/* Convert Gain to unit of dB (decibel) befor passing to kernel driver */
+				//use_decibel_gain = "true";	// FIX:?
+
+				/* enable CID_SENSOR_MODE_ID for sensor modes selection */
+				use_sensor_mode_id = "true";
+				mode0 {
+					
+					tegra_sinterface = "serial_a";
+					vc_id = "1";
+					mclk_khz = "24000";
+					num_lanes = "4";
+					discontinuous_clk = "no";
+					dpcm_enable = "false";
+					cil_settletime = "0";
+					mode_type = "yuv";
+					pixel_phase = "uyvy";
+					csi_pixel_bit_depth = "16";
+					dynamic_pixel_bit_depth = "16";
+					
+					active_w = "1920";
+					active_h = "1080";
+					readout_orientation = "0";
+					line_length = "2200";
+					inherent_gain = "1";
+					pix_clk_hz = "74250000";
+                                        serdes_pix_clk_hz = "1875000000";	// FIX:* 74250000
+
+					gain_factor = "100";
+					min_gain_val = "100"; /* dB */
+					max_gain_val = "800"; /* dB */
+					step_gain_val = "1"; /* 0.3 */
+					default_gain = "100";
+					min_hdr_ratio = "1";
+					max_hdr_ratio = "1";
+					framerate_factor = "1000000";
+					min_framerate = "30000000";
+					max_framerate = "30000000";
+					step_framerate = "1";
+					default_framerate = "30000000";
+					exposure_factor = "1000000";
+					min_exp_time = "49"; /*us, 2 lines*/
+					max_exp_time = "33333";
+					step_exp_time = "1";
+					default_exp_time = "33333";/* us */
+					embedded_metadata_height = "0";
+				};
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0233_out1: endpoint {
+							vc-id = <1>;
+							port-index = <0>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0233_csi_in1>;
+						};
+					};
+				};
+				gmsl-link {
+					src-csi-port = "b";
+					dst-csi-port = "a";
+					serdes-csi-link = "b";
+					csi-mode = "1x4";
+					st-vc = <0>;
+					vc-id = <1>;
+					num-lanes = <4>;
+					streams = "yuv8";	// FIX:*
+				};
+			};
+			
+			};
+
+		     i2c@1 {
+			cam2@1b {
+				compatible = "sensing,ar0233isp";
+
+				def-addr = <0x10>;	// FIX:+
+				//reg = <0x1b>;	// FIX:-
+
+				/* Physical dimensions of sensor */
+				physical_w = "15.0";
+				physical_h = "12.5";
+				 reg_mux = <1>;
+				sensor_model ="ar0233";
+
+				/* Defines number of frames to be dropped by driver internally after applying */
+				/* sensor crop settings. Some sensors send corrupt frames after applying */
+				/* crop co-ordinates */
+				post_crop_frame_drop = "0";
+
+				/* Convert Gain to unit of dB (decibel) befor passing to kernel driver */
+				//use_decibel_gain = "true";	// FIX:?
+
+				/* enable CID_SENSOR_MODE_ID for sensor modes selection */
+				use_sensor_mode_id = "true";
+
+				mode0 {
+					tegra_sinterface = "serial_c";
+					vc_id = "0";
+					mclk_khz = "24000";
+					num_lanes = "4";
+					discontinuous_clk = "no";
+					dpcm_enable = "false";
+					cil_settletime = "0";
+					mode_type = "yuv";
+					pixel_phase = "uyvy";
+					csi_pixel_bit_depth = "16";
+					dynamic_pixel_bit_depth = "16";
+					
+					active_w = "1920";
+					active_h = "1080";
+					readout_orientation = "0";
+					line_length = "2200";
+					inherent_gain = "1";
+					pix_clk_hz = "74250000";
+                                                serdes_pix_clk_hz = "1875000000";	// FIX:* 74250000
+					//serdes_pix_clk_hz = "200000000";	// FIX:-
+
+					gain_factor = "100";
+					min_gain_val = "100"; /* dB */
+					max_gain_val = "800"; /* dB */
+					step_gain_val = "1"; /* 0.3 */
+					default_gain = "100";
+					min_hdr_ratio = "1";
+					max_hdr_ratio = "1";
+					framerate_factor = "1000000";
+					min_framerate = "30000000";
+					max_framerate = "30000000";
+					step_framerate = "1";
+					default_framerate = "30000000";
+					exposure_factor = "1000000";
+					min_exp_time = "49"; /*us, 2 lines*/
+					max_exp_time = "33333";
+					step_exp_time = "1";
+					default_exp_time = "33333";/* us */
+					embedded_metadata_height = "0";
+				};
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0233_out2: endpoint {
+							vc-id = <0>;
+							port-index = <2>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0233_csi_in2>;
+						};
+					};
+				};
+				gmsl-link {
+					src-csi-port = "b";
+					dst-csi-port = "a";
+					serdes-csi-link = "a";
+					csi-mode = "1x4";
+					st-vc = <0>;
+					vc-id = <0>;
+					num-lanes = <4>;
+					streams = "yuv8";
+				};
+			};
+
+			cam3@1c {
+				compatible = "sensing,ar0233isp";
+
+				def-addr = <0x10>;	// FIX:+
+				//reg = <0x1b>;	// FIX:-
+				 reg_mux = <1>;
+				/* Physical dimensions of sensor */
+				physical_w = "15.0";
+				physical_h = "12.5";
+
+				sensor_model ="ar0233";
+
+				/* Defines number of frames to be dropped by driver internally after applying */
+				/* sensor crop settings. Some sensors send corrupt frames after applying */
+				/* crop co-ordinates */
+				post_crop_frame_drop = "0";
+
+				/* Convert Gain to unit of dB (decibel) befor passing to kernel driver */
+				//use_decibel_gain = "true";	// FIX:?
+
+				/* enable CID_SENSOR_MODE_ID for sensor modes selection */
+				use_sensor_mode_id = "true";
+				mode0 {
+					tegra_sinterface = "serial_c";
+					vc_id = "1";
+					mclk_khz = "24000";
+					num_lanes = "4";
+					discontinuous_clk = "no";
+					dpcm_enable = "false";
+					cil_settletime = "0";
+					mode_type = "yuv";
+					pixel_phase = "uyvy";
+					csi_pixel_bit_depth = "16";
+					dynamic_pixel_bit_depth = "16";
+					
+					active_w = "1920";
+					active_h = "1080";
+					readout_orientation = "0";
+					line_length = "2200";
+					inherent_gain = "1";
+					pix_clk_hz = "74250000";
+                                                serdes_pix_clk_hz = "1875000000";	// FIX:* 74250000
+					//serdes_pix_clk_hz = "200000000";	// FIX:-
+
+						gain_factor = "100";
+					min_gain_val = "100"; /* dB */
+					max_gain_val = "800"; /* dB */
+					step_gain_val = "1"; /* 0.3 */
+					default_gain = "100";
+					min_hdr_ratio = "1";
+					max_hdr_ratio = "1";
+					framerate_factor = "1000000";
+					min_framerate = "30000000";
+					max_framerate = "30000000";
+					step_framerate = "1";
+					default_framerate = "30000000";
+					exposure_factor = "1000000";
+					min_exp_time = "49"; /*us, 2 lines*/
+					max_exp_time = "33333";
+					step_exp_time = "1";
+					default_exp_time = "33333";/* us */
+					embedded_metadata_height = "0";
+				};
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0233_out3: endpoint {
+							vc-id = <1>;
+							port-index = <2>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0233_csi_in3>;
+						};
+					};
+				};
+				gmsl-link {
+					src-csi-port = "b";
+					dst-csi-port = "a";
+					serdes-csi-link = "b";
+					csi-mode = "1x4";
+					st-vc = <0>;
+					vc-id = <1>;
+					num-lanes = <4>;
+					streams = "yuv8";
+				};
+			
+			};
+			};
+			};
+			
+			tca9543@73{
+			i2c@0 {
+			cam4@1b {
+				compatible = "sensing,ar0233isp";
+
+				def-addr = <0x10>;	// FIX:+
+				//reg = <0x1b>;	// FIX:-
+				 reg_mux = <2>;
+				/* Physical dimensions of sensor */
+				physical_w = "15.0";
+				physical_h = "12.5";
+
+				sensor_model ="ar0233";
+
+				/* Defines number of frames to be dropped by driver internally after applying */
+				/* sensor crop settings. Some sensors send corrupt frames after applying */
+				/* crop co-ordinates */
+				post_crop_frame_drop = "0";
+
+				/* Convert Gain to unit of dB (decibel) befor passing to kernel driver */
+				//use_decibel_gain = "true";	// FIX:?
+
+				/* enable CID_SENSOR_MODE_ID for sensor modes selection */
+				use_sensor_mode_id = "true";
+
+				mode0 {
+					tegra_sinterface = "serial_e";
+					vc_id = "0";
+					mclk_khz = "24000";
+					num_lanes = "4";
+					discontinuous_clk = "no";
+					dpcm_enable = "false";
+					cil_settletime = "0";
+					mode_type = "yuv";
+					pixel_phase = "uyvy";
+					csi_pixel_bit_depth = "16";
+					dynamic_pixel_bit_depth = "16";
+
+					active_w = "1920";
+					active_h = "1080";
+					readout_orientation = "0";
+					line_length = "2200";
+					inherent_gain = "1";
+					pix_clk_hz = "74250000";
+                                                serdes_pix_clk_hz = "1875000000";	// FIX:* 74250000
+					//serdes_pix_clk_hz = "200000000";	// FIX:-
+
+					gain_factor = "100";
+					min_gain_val = "100"; /* dB */
+					max_gain_val = "800"; /* dB */
+					step_gain_val = "1"; /* 0.3 */
+					default_gain = "100";
+					min_hdr_ratio = "1";
+					max_hdr_ratio = "1";
+					framerate_factor = "1000000";
+					min_framerate = "30000000";
+					max_framerate = "30000000";
+					step_framerate = "1";
+					default_framerate = "30000000";
+					exposure_factor = "1000000";
+					min_exp_time = "49"; /*us, 2 lines*/
+					max_exp_time = "33333";
+					step_exp_time = "1";
+					default_exp_time = "33333";/* us */
+					embedded_metadata_height = "0";
+				};
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0233_out4: endpoint {
+							vc-id = <0>;
+							port-index = <4>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0233_csi_in4>;
+						};
+					};
+				};
+				gmsl-link {
+					src-csi-port = "b";
+					dst-csi-port = "a";
+					serdes-csi-link = "a";
+					csi-mode = "1x4";
+					st-vc = <0>;
+					vc-id = <0>;
+					num-lanes = <4>;
+					streams = "yuv8";
+					//streams = "ued-u1", "raw12";	// FIX:-
+				};
+			};
+			
+			cam5@1c {
+				compatible = "sensing,ar0233isp";
+
+				def-addr = <0x10>;	// FIX:+
+				//reg = <0x1b>;	// FIX:-
+				reg_mux = <2>;
+				/* Physical dimensions of sensor */
+				physical_w = "15.0";
+				physical_h = "12.5";
+
+				sensor_model ="ar0233";
+
+				/* Defines number of frames to be dropped by driver internally after applying */
+				/* sensor crop settings. Some sensors send corrupt frames after applying */
+				/* crop co-ordinates */
+				post_crop_frame_drop = "0";
+
+				/* Convert Gain to unit of dB (decibel) befor passing to kernel driver */
+				//use_decibel_gain = "true";	// FIX:?
+
+				/* enable CID_SENSOR_MODE_ID for sensor modes selection */
+				use_sensor_mode_id = "true";
+				mode0 {
+					tegra_sinterface = "serial_e";
+					vc_id = "1";
+					mclk_khz = "24000";
+					num_lanes = "4";
+					discontinuous_clk = "no";
+					dpcm_enable = "false";
+					cil_settletime = "0";
+					mode_type = "yuv";
+					pixel_phase = "uyvy";
+					csi_pixel_bit_depth = "16";
+					dynamic_pixel_bit_depth = "16";
+
+					active_w = "1920";
+					active_h = "1080";
+					readout_orientation = "0";
+					line_length = "2200";
+					inherent_gain = "1";
+					pix_clk_hz = "74250000";
+                                                serdes_pix_clk_hz = "1875000000";	// FIX:* 74250000
+					//serdes_pix_clk_hz = "200000000";	// FIX:-
+
+					gain_factor = "100";
+					min_gain_val = "100"; /* dB */
+					max_gain_val = "800"; /* dB */
+					step_gain_val = "1"; /* 0.3 */
+					default_gain = "100";
+					min_hdr_ratio = "1";
+					max_hdr_ratio = "1";
+					framerate_factor = "1000000";
+					min_framerate = "30000000";
+					max_framerate = "30000000";
+					step_framerate = "1";
+					default_framerate = "30000000";
+					exposure_factor = "1000000";
+					min_exp_time = "49"; /*us, 2 lines*/
+					max_exp_time = "33333";
+					step_exp_time = "1";
+					default_exp_time = "33333";/* us */
+					embedded_metadata_height = "0";
+				};
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0233_out5: endpoint {
+							vc-id = <1>;
+							port-index = <4>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0233_csi_in5>;
+						};
+					};
+				};
+				gmsl-link {
+					src-csi-port = "b";
+					dst-csi-port = "a";
+					serdes-csi-link = "b";
+					csi-mode = "1x4";
+					st-vc = <0>;
+					vc-id = <1>;
+					num-lanes = <4>;
+					streams = "yuv8";
+				};
+			};
+			};
+			
+			i2c@1 {
+			cam6@1b {
+				compatible = "sensing,ar0233isp";
+
+				def-addr = <0x10>;	// FIX:+
+				//reg = <0x1b>;	// FIX:-
+				reg_mux = <3>;
+				/* Physical dimensions of sensor */
+				physical_w = "15.0";
+				physical_h = "12.5";
+
+				sensor_model ="ar0233";
+
+				/* Defines number of frames to be dropped by driver internally after applying */
+				/* sensor crop settings. Some sensors send corrupt frames after applying */
+				/* crop co-ordinates */
+				post_crop_frame_drop = "0";
+
+				/* Convert Gain to unit of dB (decibel) befor passing to kernel driver */
+				//use_decibel_gain = "true";	// FIX:?
+
+				/* enable CID_SENSOR_MODE_ID for sensor modes selection */
+				use_sensor_mode_id = "true";
+				mode0 {
+					tegra_sinterface = "serial_g";
+					vc_id = "0";
+					mclk_khz = "24000";
+					num_lanes = "4";
+					discontinuous_clk = "no";
+					dpcm_enable = "false";
+					cil_settletime = "0";
+					mode_type = "yuv";
+					pixel_phase = "uyvy";
+					csi_pixel_bit_depth = "16";
+					dynamic_pixel_bit_depth = "16";
+
+					active_w = "1920";
+					active_h = "1080";
+					readout_orientation = "0";
+					line_length = "2200";
+					inherent_gain = "1";
+					pix_clk_hz = "74250000";
+                                                serdes_pix_clk_hz = "1875000000";	// FIX:* 74250000
+					//serdes_pix_clk_hz = "200000000";	// FIX:-
+
+					gain_factor = "100";
+					min_gain_val = "100"; /* dB */
+					max_gain_val = "800"; /* dB */
+					step_gain_val = "1"; /* 0.3 */
+					default_gain = "100";
+					min_hdr_ratio = "1";
+					max_hdr_ratio = "1";
+					framerate_factor = "1000000";
+					min_framerate = "30000000";
+					max_framerate = "30000000";
+					step_framerate = "1";
+					default_framerate = "30000000";
+					exposure_factor = "1000000";
+					min_exp_time = "49"; /*us, 2 lines*/
+					max_exp_time = "33333";
+					step_exp_time = "1";
+					default_exp_time = "33333";/* us */
+					embedded_metadata_height = "0";
+				};
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0233_out6: endpoint {
+							vc-id = <0>;
+							port-index = <6>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0233_csi_in6>;
+						};
+					};
+				};
+				gmsl-link {
+					src-csi-port = "b";
+					dst-csi-port = "a";
+					serdes-csi-link = "a";
+					csi-mode = "1x4";
+					st-vc = <0>;
+					vc-id = <0>;
+					num-lanes = <4>;
+					streams = "yuv8";
+				};
+			};
+			
+			cam7@1c {
+				compatible = "sensing,ar0233isp";
+				reg_mux = <3>;
+				def-addr = <0x10>;	// FIX:+
+				//reg = <0x1b>;	// FIX:-
+
+				/* Physical dimensions of sensor */
+				physical_w = "15.0";
+				physical_h = "12.5";
+
+				sensor_model ="ar0233";
+
+				/* Defines number of frames to be dropped by driver internally after applying */
+				/* sensor crop settings. Some sensors send corrupt frames after applying */
+				/* crop co-ordinates */
+				post_crop_frame_drop = "0";
+
+				/* Convert Gain to unit of dB (decibel) befor passing to kernel driver */
+				//use_decibel_gain = "true";	// FIX:?
+
+				/* enable CID_SENSOR_MODE_ID for sensor modes selection */
+				use_sensor_mode_id = "true";
+				mode0 {
+					tegra_sinterface = "serial_g";
+					vc_id = "1";
+					mclk_khz = "24000";
+					num_lanes = "4";
+					discontinuous_clk = "no";
+					dpcm_enable = "false";
+					cil_settletime = "0";
+					mode_type = "yuv";
+					pixel_phase = "uyvy";
+					csi_pixel_bit_depth = "16";
+					dynamic_pixel_bit_depth = "16";
+
+					active_w = "1920";
+					active_h = "1080";
+					readout_orientation = "0";
+					line_length = "2200";
+					inherent_gain = "1";
+					pix_clk_hz = "74250000";
+                                                serdes_pix_clk_hz = "1875000000";	// FIX:* 74250000
+					//serdes_pix_clk_hz = "200000000";	// FIX:-
+
+					gain_factor = "100";
+					min_gain_val = "100"; /* dB */
+					max_gain_val = "800"; /* dB */
+					step_gain_val = "1"; /* 0.3 */
+					default_gain = "100";
+					min_hdr_ratio = "1";
+					max_hdr_ratio = "1";
+					framerate_factor = "1000000";
+					min_framerate = "30000000";
+					max_framerate = "30000000";
+					step_framerate = "1";
+					default_framerate = "30000000";
+					exposure_factor = "1000000";
+					min_exp_time = "49"; /*us, 2 lines*/
+					max_exp_time = "33333";
+					step_exp_time = "1";
+					default_exp_time = "33333";/* us */
+					embedded_metadata_height = "0";
+				};
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0233_out7: endpoint {
+							vc-id = <1>;
+							port-index = <6>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0233_csi_in7>;
+						};
+					};
+				};
+				gmsl-link {
+					src-csi-port = "b";
+					dst-csi-port = "a";
+					serdes-csi-link = "b";
+					csi-mode = "1x4";
+					st-vc = <0>;
+					vc-id = <1>;
+					num-lanes = <4>;
+					streams = "yuv8";
+				};
+			};
+		};
+		};
+};
+
+
+};
+
+/ {
+
+	tcp: tegra-camera-platform {
+		compatible = "nvidia, tegra-camera-platform";
+		/**
+		* Physical settings to calculate max ISO BW
+		*
+		* num_csi_lanes = <>;
+		* Total number of CSI lanes when all cameras are active
+		*
+		* max_lane_speed = <>;
+		* Max lane speed in Kbit/s
+		*
+		* min_bits_per_pixel = <>;
+		* Min bits per pixel
+		*
+		* vi_peak_byte_per_pixel = <>;
+		* Max byte per pixel for the VI ISO case
+		*
+		* vi_bw_margin_pct = <>;
+		* Vi bandwidth margin in percentage
+		*
+		* max_pixel_rate = <>;
+		* Max pixel rate in Kpixel/s for the ISP ISO case
+		*
+		* isp_peak_byte_per_pixel = <>;
+		* Max byte per pixel for the ISP ISO case
+		*
+		* isp_bw_margin_pct = <>;
+		* Isp bandwidth margin in percentage
+		*/
+		num_csi_lanes = <0x10>;
+//#ifdef CAM_SERDES_GMSL)
+		max_lane_speed = <0x180000>;
+//#else	// CAM_SERDES_FPDL
+//		max_lane_speed = <1500000>;	// FIX:?
+//#endif
+		min_bits_per_pixel = <10>;	// FIX:* 10
+		vi_peak_byte_per_pixel = <2>;
+		vi_bw_margin_pct = <0x19>;
+		//max_pixel_rate = <800000>;	// FIX:? 160|200|300|750
+		isp_peak_byte_per_pixel = <5>;
+		isp_bw_margin_pct = <0x19>;
+
+		/**
+		 * The general guideline for naming badge_info contains 3 parts, and is as follows,
+		 * The first part is the camera_board_id for the module; if the module is in a FFD
+		 * platform, then use the platform name for this part.
+		 * The second part contains the position of the module, ex. "rear" or "front".
+		 * The third part contains the last 6 characters of a part number which is found
+		 * in the module's specsheet from the vender.
+		 */
+		modules {
+			module0 {
+				badge = "ar0233_rear";
+				position = "rear";
+				orientation = "1";
+				drivernode0 {
+					/* Declare PCL support driver (classically known as guid)  */
+					pcl_id = "v4l2_sensor";
+					/* Driver v4l2 device name */
+					devname = "ar0233 30-001b";
+					/* Declare the device-tree hierarchy to driver instance */
+					proc-device-tree = "/proc/device-tree/i2c@3180000/tca9543@72/i2c@0/cam0@1b";
+				};
+			};
+			module1 {
+				badge = "ar0233_front";
+				position = "front";
+				orientation = "1";
+				drivernode0 {
+					/* Declare PCL support driver (classically known as guid)  */
+					pcl_id = "v4l2_sensor";
+					/* Driver v4l2 device name */
+					devname = "ar0233 30-001c";
+					/* Declare the device-tree hierarchy to driver instance */
+					proc-device-tree = "/proc/device-tree/i2c@3180000/tca9543@72/i2c@/cam1@1c";
+				};
+			};
+			module2 {
+				badge = "ar0233_left";
+				position = "topright";	// topleft
+				orientation = "1";
+				drivernode0 {
+					/* Declare PCL support driver (classically known as guid)  */
+					pcl_id = "v4l2_sensor";
+					/* Driver v4l2 device name */
+					devname = "ar0233 31-001b";
+					/* Declare the device-tree hierarchy to driver instance */
+					proc-device-tree = "/proc/device-tree/i2c@3180000/tca9543@72/i2c@1/cam2@1b";
+				};
+			};
+			module3 {
+				badge = "ar0233_right";
+				position = "bottomright";	// topright
+				orientation = "1";
+				drivernode0 {
+					/* Declare PCL support driver (classically known as guid)  */
+					pcl_id = "v4l2_sensor";
+					/* Driver v4l2 device name */
+					devname = "ar0233 31-001c";
+					/* Declare the device-tree hierarchy to driver instance */
+					proc-device-tree = "//proc/device-tree/i2c@3180000/tca9543@72/i2c@1/cam3@1c";
+				};
+			};
+			module4 {
+				badge = "ar0233_right";
+				position = "topleft";	// topright
+				orientation = "1";
+				drivernode0 {
+					/* Declare PCL support driver (classically known as guid)  */
+					pcl_id = "v4l2_sensor";
+					/* Driver v4l2 device name */
+					devname = "ar0233 32-001b";
+					/* Declare the device-tree hierarchy to driver instance */
+					proc-device-tree = "/proc/device-tree/i2c@3180000/tca9543@73/i2c@0/cam4@1b";
+				};
+			};
+			module5 {
+				badge = "ar0233_right";
+				position = "centerright";	// topright
+				orientation = "1";
+				drivernode0 {
+					/* Declare PCL support driver (classically known as guid)  */
+					pcl_id = "v4l2_sensor";
+					/* Driver v4l2 device name */
+					devname = "ar0233 32-001c";
+					/* Declare the device-tree hierarchy to driver instance */
+					proc-device-tree = "/proc/device-tree/i2c@3180000/tca9543@73/i2c@0/cam5@1c";
+				};
+			};
+			module6 {
+				badge = "ar0233_right";
+				position = "centerleft";	// topright
+				orientation = "1";
+				drivernode0 {
+					/* Declare PCL support driver (classically known as guid)  */
+					pcl_id = "v4l2_sensor";
+					/* Driver v4l2 device name */
+					devname = "ar0233 33-001b";
+					/* Declare the device-tree hierarchy to driver instance */
+					proc-device-tree = "/proc/device-tree/i2c@3180000/tca9543@73/i2c@1/cam6@1b";
+				};
+			};
+			module7 {
+				badge = "ar0233_right";
+				position = "bottomleft";	// topright
+				orientation = "1";
+				drivernode0 {
+					/* Declare PCL support driver (classically known as guid)  */
+					pcl_id = "v4l2_sensor";
+					/* Driver v4l2 device name */
+					devname = "ar0233 33-001c";
+					/* Declare the device-tree hierarchy to driver instance */
+					proc-device-tree = "/proc/device-tree/i2c@3180000/tca9543@73/i2c@1/cam7@1c";
+				};
+			};
+		};
+	};
+};
