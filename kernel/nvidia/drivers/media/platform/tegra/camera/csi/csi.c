@@ -137,6 +137,15 @@ u32 read_phy_mode_from_dt(struct tegra_csi_channel *chan)
 	struct device *dev = chan->csi->dev;
 	u32 phy_mode = 0;
 
+#ifdef CONFIG_VIDEO_ECAM
+	if (mode == NULL || s_data->mode_prop_idx < 0 ) {    
+		dev_dbg(dev, "phy mode unavailable in props, use default\n");
+		phy_mode = CSI_PHY_MODE_DPHY;
+	} else {
+		dev_dbg(dev, "settle time reading from props\n");
+		phy_mode = mode->signal_properties.phy_mode;
+	}
+#else
 	if (mode) {
 		dev_dbg(dev, "settle time reading from props\n");
 		phy_mode = mode->signal_properties.phy_mode;
@@ -144,7 +153,7 @@ u32 read_phy_mode_from_dt(struct tegra_csi_channel *chan)
 		dev_dbg(dev, "phy mode unavailable in props, use default\n");
 		phy_mode = CSI_PHY_MODE_DPHY;
 	}
-
+#endif
 	return phy_mode;
 }
 

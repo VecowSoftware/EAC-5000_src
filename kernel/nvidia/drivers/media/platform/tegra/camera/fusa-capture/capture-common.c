@@ -333,6 +333,8 @@ void destroy_buffer_table(
 //	if (unlikely(tab == NULL))
 //		return;
 
+	//if( tab == NULL )
+		//goto skip;
 	write_lock(&tab->hlock);
 
 	hash_for_each_safe(tab->hhead, bkt, next, pin, hnode) {
@@ -347,6 +349,7 @@ void destroy_buffer_table(
 	write_unlock(&tab->hlock);
 
 	kmem_cache_destroy(tab->cache);
+//skip:
 	kfree(tab);
 }
 

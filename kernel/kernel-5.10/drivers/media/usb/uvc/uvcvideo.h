@@ -756,6 +756,9 @@ extern unsigned int uvc_no_drop_param;
 extern unsigned int uvc_trace_param;
 extern unsigned int uvc_timeout_param;
 extern unsigned int uvc_hw_timestamps_param;
+extern unsigned int uvc_bandwidth_cap_param;
+
+
 
 #define uvc_trace(flag, msg...) \
 	do { \

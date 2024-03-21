@@ -35,6 +35,7 @@
 		 status = "okay";
 		 phys = <&p2u_hsio_0>;
 		 phy-names = "p2u-0";
+		 nvidia,pex-wake-gpios = <&tegra_main_gpio TEGRA234_MAIN_GPIO(L, 2) GPIO_ACTIVE_LOW>;        
 		 };
 
 	pcie@141e0000 {

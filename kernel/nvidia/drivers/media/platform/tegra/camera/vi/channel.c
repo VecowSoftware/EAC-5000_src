@@ -2270,6 +2270,27 @@ static int tegra_channel_g_parm(struct file *file, void *fh,
 #endif
 
 
+#ifdef CONFIG_VIDEO_ECAM
+/* Implemented vidioc_s_parm and vidioc_g_parm ioctl for v4l2-compliance test */
+static int tegra_channel_s_parm(struct file *file, void *fh,
+               struct v4l2_streamparm *a)
+{
+	struct tegra_channel *chan = video_drvdata(file);
+	struct v4l2_subdev *sd = chan->subdev_on_csi;
+
+	return v4l2_subdev_call(sd, video, s_parm, a);
+}
+
+static int tegra_channel_g_parm(struct file *file, void *fh,
+               struct v4l2_streamparm *a)
+{
+	struct tegra_channel *chan = video_drvdata(file);
+	struct v4l2_subdev *sd = chan->subdev_on_csi;
+
+	return v4l2_subdev_call(sd, video, g_parm, a);
+}
+#endif
+
 #ifdef CONFIG_COMPAT
 #if LINUX_VERSION_CODE < KERNEL_VERSION(5, 4, 0)
 static long tegra_channel_compat_ioctl(struct file *filp,

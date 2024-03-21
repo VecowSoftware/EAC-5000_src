@@ -34,6 +34,7 @@ unsigned int uvc_no_drop_param;
 static unsigned int uvc_quirks_param = -1;
 unsigned int uvc_trace_param;
 unsigned int uvc_timeout_param = UVC_CTRL_STREAMING_TIMEOUT;
+unsigned int uvc_bandwidth_cap_param;
 
 /* ------------------------------------------------------------------------
  * Video formats
@@ -2539,6 +2540,8 @@ module_param_named(trace, uvc_trace_param, uint, S_IRUGO|S_IWUSR);
 MODULE_PARM_DESC(trace, "Trace level bitmask");
 module_param_named(timeout, uvc_timeout_param, uint, S_IRUGO|S_IWUSR);
 MODULE_PARM_DESC(timeout, "Streaming control requests timeout");
+module_param_named(bandwidth_cap, uvc_bandwidth_cap_param, uint, S_IRUGO|S_IWUSR);
+MODULE_PARM_DESC(bandwidth_cap, "Maximum bandwidth per device");
 
 /* ------------------------------------------------------------------------
  * Driver initialization and cleanup

@@ -501,7 +501,8 @@ static void vi5_capture_enqueue(struct tegra_channel *chan,
 
 	return;
 
-uncorr_err:
+uncorr_err:	
+
 	spin_lock_irqsave(&chan->capture_state_lock, flags);
 	chan->capture_state = CAPTURE_ERROR;
 	spin_unlock_irqrestore(&chan->capture_state_lock, flags);
